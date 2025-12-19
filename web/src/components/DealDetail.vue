@@ -79,10 +79,17 @@ function onKey(e: KeyboardEvent) {
   if (e.key === 'Escape') close()
 }
 
+// Watch for doc to control body scroll
+watch(doc, (newDoc) => {
+  if (newDoc) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+}, { immediate: true })
+
 onMounted(() => {
   window.addEventListener('keydown', onKey)
-  // Prevent body scroll when modal is open
-  document.body.style.overflow = 'hidden'
 })
 
 onUnmounted(() => {
