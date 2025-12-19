@@ -309,7 +309,7 @@
         <div class="flex-1 overflow-auto">
           <PdfCarousel
             v-if="activeEvent.attachment"
-            :src="eventAttachmentUrl(activeEvent.id)"
+            :src="activeEvent.attachment"
             :headerHeight="0"
             :trailerText="activeEvent.summary"
           />
@@ -326,7 +326,7 @@
 import { computed, ref } from 'vue'
 import { useEvents } from '@/composables/useEvents'
 import type { EventFull, EventPreview } from '@/types/events'
-import { fetchEvent, eventAttachmentUrl } from '@/lib/api'
+import { fetchEvent } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import PdfCarousel from '@/components/PdfCarousel.vue'
 import {
