@@ -137,29 +137,6 @@
       </div>
     </section>
 
-    <!-- Judges -->
-    <section class="py-16 md:py-20 bg-navy-50/50">
-      <div class="max-w-5xl mx-auto px-6">
-        <div class="bg-white rounded-2xl border border-navy-100 p-8">
-          <h2 class="text-2xl font-semibold text-navy-900 mb-2">Industry Judges</h2>
-          <p class="text-navy-500 font-sans mb-8">
-            Learn from and present to senior professionals from leading financial institutions.
-          </p>
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <div
-              v-for="j in judges"
-              :key="j.name"
-              class="p-4 rounded-xl bg-navy-50"
-            >
-              <span class="text-xs uppercase tracking-wide text-navy-400">{{ j.tagline }}</span>
-              <h4 class="mt-1 font-semibold text-navy-900">{{ j.name }}</h4>
-              <p class="text-sm text-navy-500">{{ j.role }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Prizes -->
     <section class="py-16 md:py-20 bg-white">
       <div class="max-w-5xl mx-auto px-6">
@@ -292,11 +269,6 @@ const eligibility = [
   'Strong interest in finance or business',
   'Ability to work collaboratively in teams',
   'Commitment to the full competition timeline',
-]
-
-const judges = [
-  { name: 'Industry Judge', role: 'Senior Professional', tagline: 'Leading Financial Institution' },
-  { name: 'Zaheed Monir', role: 'Society Senior Advisor', tagline: 'CIMA Cambridge' },
 ]
 
 const computedTimeline = computed(() => {
