@@ -44,7 +44,7 @@
 <script setup lang="ts">
 import type { DocumentPreview } from '@/types/deals'
 
-const props = defineProps<{
+defineProps<{
   doc: DocumentPreview
   variant?: string
 }>()
