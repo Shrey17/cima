@@ -1,21 +1,21 @@
 <template>
   <div
     ref="rootEl"
-    class="w-full h-full flex flex-col overflow-hidden bg-white"
+    class="w-full bg-white"
     aria-label="PDF viewer"
   >
-    <div v-if="error" class="flex-1 flex items-center justify-center p-4">
+    <div v-if="error" class="flex items-center justify-center p-4">
       <div class="text-center">
         <div class="text-red-600 text-sm mb-2">Failed to load document.</div>
         <a :href="src" target="_blank" rel="noopener" class="text-blue-600 underline text-sm">Open in new tab</a>
       </div>
     </div>
 
-    <div v-else-if="loading" class="flex-1 flex items-center justify-center">
+    <div v-else-if="loading" class="flex items-center justify-center py-12">
       <div class="text-gray-500">Loading PDF...</div>
     </div>
 
-    <div v-else class="flex-1 min-h-0 overflow-y-auto" ref="scrollContainer">
+    <div v-else ref="scrollContainer">
       <!-- All PDF pages stacked vertically -->
       <div class="flex flex-col items-center gap-4 py-4">
         <div

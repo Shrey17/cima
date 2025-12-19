@@ -26,7 +26,7 @@
       </div>
 
       <!-- PDF Content - Scrollable -->
-      <div class="flex-1 overflow-hidden min-h-0">
+      <div class="flex-1 overflow-y-auto min-h-0">
         <PdfCarousel :src="pdfSrc" />
       </div>
     </div>
