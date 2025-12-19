@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { attachmentUrl } from '@/lib/api'
+import { fetchAttachmentUrl } from '@/lib/api'
 import type { DocumentPreview } from '@/types/deals'
 import PdfCarousel from '@/components/PdfCarousel.vue'
 
@@ -48,7 +48,17 @@ const id = ref<string | null>((route.query.id as string) || null)
 watch(() => route.query.id, (v) => { id.value = (v as string) || null })
 
 const doc = computed(() => props.source.find((d) => d.id === id.value))
-const pdfSrc = computed(() => (doc.value ? attachmentUrl(doc.value.id) : ''))
+const pdfSrc = ref<string>('')
+
+// Fetch attachment URL when doc changes
+watch(doc, async (newDoc) => {
+  if (newDoc) {
+    const url = await fetchAttachmentUrl(newDoc.id)
+    pdfSrc.value = url || ''
+  } else {
+    pdfSrc.value = ''
+  }
+}, { immediate: true })
 
 // No markdown slide
 
