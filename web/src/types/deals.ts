@@ -8,6 +8,7 @@ export interface DocumentPreview {
   creation_time: string
   last_modified: string
   authors: string[]
+  url?: string | null
 }
 
 export interface DocumentFull extends DocumentPreview {

@@ -44,6 +44,7 @@ function transformDocument(record: any): DocumentPreview {
     creation_time: fields.creation_time || '',
     last_modified: fields.last_modified || '',
     authors: (fields.authors || []).map((a: any) => a.name || a),
+    url: fields.url || null,
   }
 }
 

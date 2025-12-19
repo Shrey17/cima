@@ -1,5 +1,52 @@
 <template>
+  <!-- External link if URL is provided -->
+  <a
+    v-if="doc.url"
+    :href="doc.url"
+    target="_blank"
+    rel="noopener"
+    :class="['deal-card', `deal-card-${variant}`]"
+  >
+    <!-- Accent bar -->
+    <div :class="['card-accent', `accent-${variant}`]"></div>
+
+    <div class="card-content">
+      <!-- Header -->
+      <div class="card-header">
+        <span :class="['card-badge', `badge-${variant}`]">
+          {{ formatType(doc.type) }}
+        </span>
+        <span class="card-date">{{ formatDate(doc.creation_time) }}</span>
+      </div>
+
+      <!-- Title -->
+      <h3 class="card-title">{{ doc.name }}</h3>
+
+      <!-- Summary -->
+      <p class="card-summary">{{ doc.summary }}</p>
+
+      <!-- Footer -->
+      <div class="card-footer">
+        <div class="card-authors">
+          <div class="author-avatars">
+            <span v-for="(author, i) in doc.authors.slice(0, 2)" :key="i" class="author-avatar">
+              {{ author.charAt(0) }}
+            </span>
+          </div>
+          <span class="author-names">{{ doc.authors.join(', ') }}</span>
+        </div>
+        <div class="card-arrow">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Internal router link if no URL -->
   <router-link
+    v-else
     :to="{ name: 'Research', query: { id: doc.id } }"
     :class="['deal-card', `deal-card-${variant}`]"
   >
