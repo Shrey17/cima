@@ -248,14 +248,14 @@
 
         <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
           <a
-            href="mailto:contact@cimacambridge.org"
+            href="mailto:cima@cambridgesu.co.uk"
             class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-navy-800 text-white font-medium transition-all duration-300 hover:bg-navy-700"
           >
             <Mail class="w-5 h-5" />
             Email Us
           </a>
           <a
-            href="https://linkedin.com/company/cimacambridge"
+            href="https://www.linkedin.com/company/cambridge-investment-and-mergers-acquisitions-society/"
             target="_blank"
             rel="noopener"
             class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg border-2 border-navy-200 text-navy-700 font-medium transition-all duration-300 hover:bg-navy-50"
