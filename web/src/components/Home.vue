@@ -97,13 +97,13 @@
                 <span class="text-xs text-navy-400 font-sans">
                   {{ formatDate(doc.creation_time) }}
                 </span>
-                <button
-                  @click="openDetail(doc)"
+                <router-link
+                  :to="{ path: '/research', query: { id: doc.id } }"
                   class="inline-flex items-center gap-1 text-sm font-medium text-navy-700 hover:text-navy-900 transition-colors"
                 >
                   Read more
                   <ArrowRight class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
+                </router-link>
               </div>
             </div>
           </article>
@@ -310,21 +310,13 @@
       </div>
     </section>
 
-    <!-- Deal Detail Modal -->
-    <DealDetail
-      v-if="selectedDoc"
-      :doc="selectedDoc"
-      @close="selectedDoc = null"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, markRaw } from 'vue'
-import { useRouter } from 'vue-router'
 import {
   FileText,
-  Users,
   ChevronDown,
   ArrowRight,
   Building2,
@@ -339,10 +331,8 @@ import {
 } from 'lucide-vue-next'
 import { useDeals } from '@/composables/useDeals'
 import { subscribeToMailingList } from '@/lib/api'
-import DealDetail from '@/components/DealDetail.vue'
 import type { DocumentPreview } from '@/types/deals'
 
-const router = useRouter()
 const { all: allDeals } = useDeals()
 
 // Get latest 3 research documents
@@ -353,13 +343,6 @@ const latestResearch = computed(() => {
     .sort((a, b) => new Date(b.creation_time).getTime() - new Date(a.creation_time).getTime())
     .slice(0, 3)
 })
-
-// Selected document for modal
-const selectedDoc = ref<DocumentPreview | null>(null)
-
-function openDetail(doc: DocumentPreview) {
-  selectedDoc.value = doc
-}
 
 // Finance Fundamentals cards data
 const fundamentalsCards = [

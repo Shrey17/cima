@@ -127,7 +127,7 @@ import { useRoute } from 'vue-router'
 import { useDeals } from '@/composables/useDeals'
 import DealCard from '@/components/DealCard.vue'
 import DealDetail from '@/components/DealDetail.vue'
-import { Search, Loader2, FileSearch, Zap, FileText, BookOpen } from 'lucide-vue-next'
+import { Search, FileSearch, Zap, FileText, BookOpen } from 'lucide-vue-next'
 import type { DataType } from '@/types/deals'
 
 const route = useRoute()

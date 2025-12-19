@@ -156,7 +156,6 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Menu, X, Search } from 'lucide-vue-next'
-import { Button } from '@/components/ui/button'
 import { useDeals } from '@/composables/useDeals'
 
 const route = useRoute()
