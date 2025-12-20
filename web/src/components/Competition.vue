@@ -234,11 +234,11 @@ const DEFAULTS: CompetitionConfig = {
   year: new Date().getFullYear(),
   applications: {
     isOpen: true,
-    applyUrl: 'https://example.com/apply',
+    applyUrl: 'mailto:cima.soc@outlook.com',
     openDate: '2024-09-01',
     deadlineDate: '2024-11-15',
     finalsDate: '2024-12-10',
-    sampleBriefUrl: 'https://example.com/sample-brief.pdf',
+    sampleBriefUrl: '/sixth-form-competition-brief.pdf',
   },
   stats: {
     students: 200,
