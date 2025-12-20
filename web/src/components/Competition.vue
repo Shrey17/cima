@@ -178,7 +178,7 @@
       <div class="max-w-2xl mx-auto px-6 text-center">
         <h2 class="text-2xl md:text-3xl font-semibold text-navy-900">Ready to Apply?</h2>
         <p class="mt-4 text-navy-500 font-sans">
-          Applications are open for the {{ new Date().getFullYear() }} competition. Start your journey into investment banking and M&A.
+          Applications are open for the competition. Start your journey into investment banking and M&A.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-4">
           <span
@@ -205,7 +205,7 @@
 <script setup lang="ts">
 import { computed, reactive, onMounted } from 'vue'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight, Download, Check, Mail } from 'lucide-vue-next'
+import { Download, Check, Mail } from 'lucide-vue-next'
 
 type CompetitionConfig = {
   year: number
