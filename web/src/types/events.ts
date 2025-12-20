@@ -7,6 +7,7 @@ export interface EventPreview {
   date: string
   location_url?: string | null
   registration_url?: string | null
+  attachment_url?: string | null
 }
 
 export interface EventFull extends EventPreview {

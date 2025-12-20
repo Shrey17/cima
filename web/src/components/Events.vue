@@ -49,69 +49,9 @@
 
     <!-- Content -->
     <template v-else>
-      <!-- Featured Next Event (only show on upcoming tab) -->
-      <section v-if="activeTab === 'upcoming' && featured" class="py-12 md:py-16 bg-white">
-        <div class="max-w-4xl mx-auto px-6">
-          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 p-8 md:p-12 text-center">
-            <!-- Decorative elements -->
-            <div class="absolute top-0 right-0 w-64 h-64 bg-navy-400/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-400/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
-
-            <div class="relative z-10">
-              <span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-semibold uppercase tracking-wide mb-6">
-                Next Event
-              </span>
-
-              <h2 class="text-2xl md:text-3xl font-semibold text-white mb-6">
-                {{ featured.name }}
-              </h2>
-
-              <div class="flex flex-wrap justify-center gap-6 text-sm text-navy-200 mb-6">
-                <div class="flex items-center gap-2">
-                  <Calendar class="w-4 h-4" />
-                  <span>{{ formatDateLong(featured.date) }}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <Clock class="w-4 h-4" />
-                  <span>{{ formatTime(featured.date) }}</span>
-                </div>
-                <div v-if="featured.location_url" class="flex items-center gap-2">
-                  <MapPin class="w-4 h-4" />
-                  <span>Cambridge</span>
-                </div>
-              </div>
-
-              <p class="text-navy-200 max-w-xl mx-auto mb-8 font-sans leading-relaxed">
-                {{ featured.summary }}
-              </p>
-
-              <div class="flex flex-wrap justify-center gap-4">
-                <Button
-                  v-if="featured.registration_url"
-                  as="a"
-                  :href="featured.registration_url"
-                  target="_blank"
-                  rel="noopener"
-                  class="bg-white text-navy-900 hover:bg-navy-50"
-                >
-                  Register Now
-                </Button>
-                <Button
-                  variant="outline"
-                  class="border-white/30 text-white hover:bg-white/10"
-                  @click="openEvent(featured.id)"
-                >
-                  View Details
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Event Cards Grid -->
+      <!-- Gallery Grid -->
       <section class="py-12 md:py-16 bg-navy-50/30">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6">
           <div v-if="displayedEvents.length === 0" class="text-center py-12">
             <CalendarX2 class="w-12 h-12 mx-auto text-navy-300 mb-4" />
             <p class="text-navy-500 font-sans">
@@ -119,56 +59,63 @@
             </p>
           </div>
 
-          <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <article
               v-for="event in displayedEvents"
               :key="event.id"
-              class="group bg-white rounded-xl border border-navy-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-navy-900/5 hover:border-navy-200"
+              class="group bg-white rounded-2xl border border-navy-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-navy-900/5 hover:border-navy-200 cursor-pointer"
+              @click="openEvent(event.id)"
             >
-              <div class="p-6">
-                <!-- Status Badge -->
-                <div class="mb-4">
-                  <span
-                    :class="getStatusClasses(event.status)"
-                    class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold"
-                  >
-                    {{ formatStatus(event.status) }}
-                  </span>
+              <!-- Image -->
+              <div class="aspect-[4/3] bg-navy-100 overflow-hidden">
+                <img
+                  v-if="event.attachment_url"
+                  :src="event.attachment_url"
+                  :alt="event.name"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div v-else class="w-full h-full flex items-center justify-center">
+                  <Calendar class="w-12 h-12 text-navy-300" />
                 </div>
+              </div>
 
+              <div class="p-5">
                 <!-- Title -->
-                <h3 class="text-xl font-semibold text-navy-900 mb-4 leading-snug group-hover:text-navy-700 transition-colors">
+                <h3 class="font-semibold text-navy-900 text-lg leading-snug mb-3 line-clamp-2 group-hover:text-navy-700 transition-colors">
                   {{ event.name }}
                 </h3>
 
-                <!-- Event Details -->
-                <div class="space-y-2 mb-4">
-                  <div class="flex items-center gap-2 text-sm text-navy-500">
-                    <Calendar class="w-4 h-4 shrink-0" />
-                    <span>{{ formatDateLong(event.date) }} at {{ formatTime(event.date) }}</span>
-                  </div>
-                  <div v-if="event.location_url" class="flex items-center gap-2 text-sm text-navy-500">
-                    <MapPin class="w-4 h-4 shrink-0" />
-                    <span>Cambridge</span>
-                  </div>
-                  <div class="flex items-center gap-2 text-sm text-navy-500">
-                    <Users class="w-4 h-4 shrink-0" />
-                    <span>Industry Speaker</span>
+                <!-- Summary -->
+                <p class="text-sm text-navy-500 mb-4 line-clamp-2 font-sans">
+                  {{ event.summary || 'No description available' }}
+                </p>
+
+                <!-- Status Badge -->
+                <div class="mb-3">
+                  <span class="text-xs text-navy-400 font-medium uppercase tracking-wide">status</span>
+                  <div class="mt-1">
+                    <span
+                      :class="getStatusClasses(event.status)"
+                      class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold"
+                    >
+                      {{ formatStatus(event.status) }}
+                    </span>
                   </div>
                 </div>
 
-                <!-- Summary -->
-                <p class="text-navy-600 text-sm leading-relaxed line-clamp-3 font-sans mb-5">
-                  {{ event.summary }}
-                </p>
-
-                <!-- CTA Button -->
-                <Button
-                  class="w-full bg-navy-800 hover:bg-navy-700 text-white"
-                  @click="openEvent(event.id)"
-                >
-                  Learn More
-                </Button>
+                <!-- Tags -->
+                <div v-if="event.tags?.length">
+                  <span class="text-xs text-navy-400 font-medium uppercase tracking-wide">tags</span>
+                  <div class="mt-1 flex flex-wrap gap-1">
+                    <span
+                      v-for="tag in event.tags.slice(0, 3)"
+                      :key="tag"
+                      class="px-2 py-0.5 text-xs font-medium rounded-full bg-navy-50 text-navy-600"
+                    >
+                      {{ tag }}
+                    </span>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
@@ -331,7 +278,6 @@ import { Button } from '@/components/ui/button'
 import PdfCarousel from '@/components/PdfCarousel.vue'
 import {
   Calendar,
-  Clock,
   MapPin,
   Users,
   X,
@@ -361,26 +307,6 @@ function close() {
   activeEvent.value = null
 }
 
-// Compute featured event (next upcoming confirmed event)
-const featured = computed<EventPreview | null>(() => {
-  const list = (all.value ?? []) as EventPreview[]
-  if (list.length === 0) return null
-  const now = Date.now()
-  const weight = (s: string) => (s === 'confirmed' ? 0 : s === 'pending' ? 1 : 2)
-  const future = list
-    .filter((e) => {
-      const t = new Date(e.date).getTime()
-      return !isNaN(t) && t >= now && e.status !== 'cancelled'
-    })
-    .sort((a, b) => {
-      const ta = new Date(a.date).getTime()
-      const tb = new Date(b.date).getTime()
-      if (ta !== tb) return ta - tb
-      return weight(a.status) - weight(b.status)
-    })
-  return future[0] || null
-})
-
 // Filter events based on tab
 const displayedEvents = computed(() => {
   const list = (all.value ?? []) as EventPreview[]
@@ -392,7 +318,6 @@ const displayedEvents = computed(() => {
         const t = new Date(e.date).getTime()
         return !isNaN(t) && t >= now
       })
-      .filter((e) => featured.value?.id !== e.id) // Exclude featured
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
   } else {
     return list
@@ -412,20 +337,6 @@ const formattedDate = computed(() => {
     ? activeEvent.value.date
     : new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'short' }).format(dt)
 })
-
-function formatDateLong(iso: string) {
-  const dt = new Date(iso)
-  return isNaN(dt.getTime())
-    ? iso
-    : new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(dt)
-}
-
-function formatTime(iso: string) {
-  const dt = new Date(iso)
-  return isNaN(dt.getTime())
-    ? ''
-    : new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' }).format(dt)
-}
 
 function formatStatus(status: string) {
   return status.charAt(0).toUpperCase() + status.slice(1)
@@ -450,9 +361,9 @@ function getStatusClasses(status: string) {
 </script>
 
 <style scoped>
-.line-clamp-3 {
+.line-clamp-2 {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

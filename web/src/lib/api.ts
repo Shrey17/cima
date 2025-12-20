@@ -51,6 +51,7 @@ function transformDocument(record: any): DocumentPreview {
 // Transform Airtable record to EventPreview
 function transformEvent(record: any): EventPreview {
   const fields = record.fields
+  const attachment = fields.attachment
   return {
     id: record.id,
     name: fields.name || '',
@@ -60,6 +61,7 @@ function transformEvent(record: any): EventPreview {
     date: fields.date || '',
     location_url: fields.location_url || null,
     registration_url: fields.registration_url || null,
+    attachment_url: attachment?.[0]?.url || null,
   }
 }
 
