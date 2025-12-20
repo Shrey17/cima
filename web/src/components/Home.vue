@@ -235,15 +235,12 @@
               <div class="flex flex-wrap items-center gap-4">
                 <a
                   href="mailto:cima@cambridgesu.co.uk"
-                  class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-medium transition-all duration-300 hover:opacity-90"
-                  style="background-color: #1f355e;"
+                  class="inline-flex items-center gap-2 font-sans text-sm font-medium hover:underline"
+                  style="color: #1f355e;"
                 >
                   <Mail class="w-5 h-5" />
-                  Get in Touch
-                </a>
-                <span class="font-sans text-sm" style="color: #1f355e;">
                   cima@cambridgesu.co.uk
-                </span>
+                </a>
               </div>
             </div>
           </div>

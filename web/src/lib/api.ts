@@ -15,6 +15,11 @@ const MAILING_TABLE = 'tblSHOisjiHmIFd5P'
 const AIRTABLE_API_BASE = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}`
 
 async function airtableFetch(tableId: string, recordId?: string): Promise<any> {
+  if (!AIRTABLE_API_KEY) {
+    console.error('VITE_AIRTABLE_API_KEY is not set')
+    throw new Error('API key not configured')
+  }
+
   const url = recordId
     ? `${AIRTABLE_API_BASE}/${tableId}/${recordId}`
     : `${AIRTABLE_API_BASE}/${tableId}`
@@ -27,6 +32,8 @@ async function airtableFetch(tableId: string, recordId?: string): Promise<any> {
   })
 
   if (!resp.ok) {
+    const text = await resp.text()
+    console.error('Airtable API error:', resp.status, text)
     throw new Error(`Airtable API error: ${resp.status}`)
   }
 
