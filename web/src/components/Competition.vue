@@ -41,15 +41,12 @@
             <Download class="w-5 h-5" />
             Download Sample Brief
           </a>
-          <a
-            :href="state.applyUrl"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-navy-900 font-medium transition-all duration-300 hover:bg-navy-50"
+          <span
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-navy-900 font-medium"
           >
-            <ArrowRight class="w-5 h-5" />
-            Apply Now
-          </a>
+            <Mail class="w-5 h-5" />
+            cima.soc@outlook.com
+          </span>
         </div>
       </div>
     </section>
@@ -184,15 +181,12 @@
           Applications are open for the {{ new Date().getFullYear() }} competition. Start your journey into investment banking and M&A.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a
-            :href="state.applyUrl"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-navy-800 text-white font-medium transition-all duration-300 hover:bg-navy-700"
+          <span
+            class="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-navy-800 text-white font-medium"
           >
-            <ArrowRight class="w-5 h-5" />
-            Apply Now
-          </a>
+            <Mail class="w-5 h-5" />
+            cima.soc@outlook.com
+          </span>
           <a
             :href="state.sampleBriefUrl"
             target="_blank"
@@ -211,7 +205,7 @@
 <script setup lang="ts">
 import { computed, reactive, onMounted } from 'vue'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight, Download, Check } from 'lucide-vue-next'
+import { ArrowRight, Download, Check, Mail } from 'lucide-vue-next'
 
 type CompetitionConfig = {
   year: number
@@ -235,9 +229,9 @@ const DEFAULTS: CompetitionConfig = {
   applications: {
     isOpen: true,
     applyUrl: 'mailto:cima.soc@outlook.com',
-    openDate: '2024-09-01',
-    deadlineDate: '2024-11-15',
-    finalsDate: '2024-12-10',
+    openDate: '2025-09-01',
+    deadlineDate: '2025-10-15',
+    finalsDate: '2025-11-20',
     sampleBriefUrl: '/sixth-form-competition-brief.pdf',
   },
   stats: {
@@ -295,7 +289,7 @@ const computedTimeline = computed(() => {
 
   function label(d: string) {
     const dt = new Date(d)
-    return isNaN(dt.getTime()) ? d : new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' }).format(dt)
+    return isNaN(dt.getTime()) ? d : new Intl.DateTimeFormat('en-GB', { month: 'long' }).format(dt)
   }
 
   const now = Date.now()

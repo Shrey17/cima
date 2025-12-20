@@ -16,7 +16,6 @@
         <span :class="['card-badge', `badge-${variant}`]">
           {{ formatType(doc.type) }}
         </span>
-        <span class="card-date">{{ formatDate(doc.creation_time) }}</span>
       </div>
 
       <!-- Title -->
@@ -59,7 +58,6 @@
         <span :class="['card-badge', `badge-${variant}`]">
           {{ formatType(doc.type) }}
         </span>
-        <span class="card-date">{{ formatDate(doc.creation_time) }}</span>
       </div>
 
       <!-- Title -->
@@ -103,14 +101,6 @@ function formatType(type: string): string {
   return type
 }
 
-function formatDate(dateStr: string): string {
-  const d = new Date(dateStr)
-  return d.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  })
-}
 </script>
 
 <style scoped>
@@ -189,11 +179,6 @@ function formatDate(dateStr: string): string {
   color: #059669;
 }
 
-.card-date {
-  font-size: 0.75rem;
-  color: #94a3b8;
-  font-weight: 500;
-}
 
 /* Title */
 .card-title {
